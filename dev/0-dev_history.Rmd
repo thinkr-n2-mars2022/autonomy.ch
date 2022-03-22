@@ -39,6 +39,7 @@ usethis::git_vaccinate()
 # Set extra sources of documentation
 
 ```{r, eval=FALSE}
+devtools::install()
 # README
 usethis::use_readme_rmd()
 # Code of Conduct
