@@ -4,9 +4,11 @@
 # autonomy.ch
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/thinkr-n2-mars2022/autonomy.ch/workflows/R-CMD-check/badge.svg)](https://github.com/thinkr-n2-mars2022/autonomy.ch/actions)
 <!-- badges: end -->
 
-The goal of autonomy.ch is to …
+The goal of autonomy.ch is to practice packages creation
 
 ## Installation
 

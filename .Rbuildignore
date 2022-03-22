@@ -4,3 +4,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
+^autonomy\.ch\.Rproj$
+^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

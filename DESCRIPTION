@@ -1,15 +1,27 @@
 Package: autonomy.ch
-Version: 0.0.0.9000
 Title: Build A Package From Rmarkdown File
-Description: Use Rmarkdown First method to build your package. Start your package with documentation. Everything can be set from a Rmarkdown file in your project.
-Authors@R: c(person(given = "Christine",
-         family = "Hoogland",
-         role = c("aut", "cre"),
-         email = "christine.hoogland@finddx.org",
-         comment = c(ORCID = "0000-0002-7341-1551")),
-  person(given = "ThinkR",
-         role = "cph"))
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Christine", "Hoogland", , "christine.hoogland@finddx.org", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-7341-1551")),
+    person("ThinkR", role = "cph")
+  )
+Description: Use Rmarkdown First method to build your package. Start your
+    package with documentation. Everything can be set from a Rmarkdown
+    file in your project.
 License: MIT + file LICENSE
+Imports: 
+    assertthat,
+    dplyr,
+    magrittr,
+    stats,
+    stringr
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
