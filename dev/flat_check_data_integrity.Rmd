@@ -1,5 +1,5 @@
 ---
-title: "flat_additional.Rmd empty"
+title: "flat_check_data_integrity.Rmd"
 output: html_document
 editor_options: 
   chunk_output_type: console
@@ -19,7 +19,7 @@ pkgload::load_all(export_all = FALSE)
 # Function check_data_integrity
 
 ```{r function-check_data_integrity}
-#' check_data_integrity check dataset integrity
+#' check_data_integrity: check dataset integrity
 #'
 #' @param data a dataset to check
 #' @param colname a column to check
@@ -31,11 +31,11 @@ pkgload::load_all(export_all = FALSE)
 #' @examples
 check_data_integrity <- function(data, colname) {
   assert_that(is.data.frame(data))
-  assert_that({{colname}} %in% names(data))
+  assert_that({{colname}} %in% names(data), msg = paste({{colname}},"does not exist in data"))
   
   detect_str <- data %>% pull({colname}) %>% 
     stringr::str_detect('\\+')
-  assert_that(!any(detect_str, na.rm = T))
+  assert_that(!any(detect_str, na.rm = T), msg = paste("forbidden pattern detected in",{{colname}}))
   return("Dataset is OK")
 }
 ```
@@ -49,14 +49,26 @@ check_data_integrity(nyc_squirrels,'primary_fur_color')
 ```
 
 ```{r tests-check_data_integrity}
-test_that("check_data_integrity works", {
-  datafile <- system.file("nyc_squirrels_sample.csv", package = "autonomy.ch")
-  nyc_squirrels <- read.csv(datafile)
-  colname = 'combination_of_primary_and_highlight_color'
+datafile <- system.file("nyc_squirrels_sample.csv", package = "autonomy.ch")
+nyc_squirrels <- read.csv(datafile)
   
-  testthat::expect_error(check_data_integrity(NULL, colname))
-  testthat::expect_error(check_data_integrity(nyc_squirrels, colname))
+colname_ok = 'primary_fur_color'
+colname_with_error = 'combination_of_primary_and_highlight_color'
 
+test_that("1a. check_data_integrity checking dataset input", {
+  expect_error(check_data_integrity(NULL, colname_ok))
+})
+
+test_that("1b. check_data_integrity checking colname input", {
+  expect_error(check_data_integrity(nyc_squirrels, 'not_existing_col'))
+})
+
+test_that("2. check_data_integrity checking data OK", {
+  expect_equal(check_data_integrity(nyc_squirrels, colname_ok),'Dataset is OK')
+})
+
+test_that("3. check_data_integrity catching data error", {
+  expect_error(check_data_integrity(nyc_squirrels, colname_with_error))
 })
 ```
 
@@ -64,6 +76,6 @@ test_that("check_data_integrity works", {
 ```{r development-inflate, eval=FALSE}
 # Run but keep eval=FALSE to avoid infinite loop
 # Execute in the console directly
-fusen::inflate(flat_file = "dev/flat_additional.Rmd", vignette_name = "Go further")
+fusen::inflate(flat_file = "dev/flat_check_data_integrity.Rmd", vignette_name = "Get started")
 ```
 

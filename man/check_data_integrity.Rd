@@ -2,7 +2,7 @@
 % Please edit documentation in R/check_data_integrity.R
 \name{check_data_integrity}
 \alias{check_data_integrity}
-\title{check_data_integrity check dataset integrity}
+\title{check_data_integrity: check dataset integrity}
 \usage{
 check_data_integrity(data, colname)
 }
@@ -15,7 +15,7 @@ check_data_integrity(data, colname)
 Side effect: a text message if everything is OK
 }
 \description{
-check_data_integrity check dataset integrity
+check_data_integrity: check dataset integrity
 }
 \examples{
 datafile <- system.file("nyc_squirrels_sample.csv", package = "autonomy.ch")

@@ -2,8 +2,6 @@
 
 export("%>%")
 export(check_data_integrity)
-export(my_median)
-export(my_other_median)
 importFrom(assertthat,assert_that)
 importFrom(dplyr,pull)
 importFrom(magrittr,"%>%")

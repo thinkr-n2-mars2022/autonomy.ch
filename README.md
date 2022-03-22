@@ -8,7 +8,7 @@
 [![R-CMD-check](https://github.com/thinkr-n2-mars2022/autonomy.ch/workflows/R-CMD-check/badge.svg)](https://github.com/thinkr-n2-mars2022/autonomy.ch/actions)
 <!-- badges: end -->
 
-The goal of autonomy.ch is to practice packages creation
+The goal of autonomy.ch is to practice package creation
 
 ## Installation
 
@@ -20,38 +20,47 @@ You can install the development version of autonomy.ch from
 devtools::install_github("thinkr-n2-mars2022/autonomy.ch")
 ```
 
-## Example
+## Function check_data_integrity
 
-This is a basic example which shows you how to solve a common problem:
+Some basic examples to show how check_data_integrity is working
+
+# This line works:
 
 ``` r
 library(autonomy.ch)
-## basic example code
+
+datafile <- system.file("nyc_squirrels_sample.csv", package = "autonomy.ch")
+nyc_squirrels <- read.csv(datafile)
+
+# ok: data is an existing data.frame, colname exists, data in column is OK
+check_data_integrity(data = nyc_squirrels, colname = 'primary_fur_color')
+#> [1] "Dataset is OK"
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+# These lines return an explicit error:
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+library(autonomy.ch)
+
+#error: not a data.frame
+check_data_integrity(data = NULL, colname = 'combination_of_primary_and_highlight_color')
+#> Error: data is not a data frame
+
+datafile <- system.file("nyc_squirrels_sample.csv", package = "autonomy.ch")
+nyc_squirrels <- read.csv(datafile)
+
+#error: not an existing column
+check_data_integrity(data = nyc_squirrels, colname = 'not_existing_col')
+#> Error: not_existing_col does not exist in data
+
+#error: detecting forbidden pattern in existing column
+check_data_integrity(data = nyc_squirrels, colname = 'combination_of_primary_and_highlight_color')
+#> Error: forbidden pattern detected in combination_of_primary_and_highlight_color
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
+## Code of Conduct
 
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+Please note that the my.tools project is released with a [Contributor
+Code of
+Conduct](https://contributor-covenant.org/version/2/0/CODE_OF_CONDUCT.html).
+By contributing to this project, you agree to abide by its terms.
